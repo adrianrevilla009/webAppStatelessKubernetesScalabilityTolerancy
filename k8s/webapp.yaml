@@ -22,13 +22,15 @@ spec:
         image: codeurjc/webapp-session-cluster:0.0.6
         env:
         - name: DATABASE_HOST
-          value: db
+          value: db.db-namespace.svc.cluster.local
         - name: DATABASE_PORT
           value: "3306"
         - name: MYSQL_ROOT_PASSWORD
           value: pass
         - name: DATABASE_SCHEMA
           value: webapp_db
+        - name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT
+          value: org.hibernate.dialect.MySQL8Dialect
 ---
 apiVersion: v1
 kind: Service
@@ -44,12 +46,18 @@ spec:
       name: webapp
   selector:
     app: webapp
-  type: LoadBalancer
+  type: NodePort
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: db-namespace
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: db
+  namespace: db-namespace
 spec:
   ports:
   - port: 3306
@@ -61,6 +69,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: db
+  namespace: db-namespace
 spec:
   selector:
     matchLabels:
@@ -73,11 +82,15 @@ spec:
         app: db
     spec:
       containers:
-      - image: mysql:5.7
+      - image: mysql:8.0
         name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: pass
+#        - name: MYSQL_PASSWORD
+#          value: pass
+#        - name: MYSQL_USER
+#          value: adrian
         - name: MYSQL_DATABASE
           value: webapp_db
         ports:
