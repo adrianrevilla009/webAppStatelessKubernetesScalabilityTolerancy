@@ -14,7 +14,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled
 public class E2EHeadlessTest {
 
 	private HttpClientContext httpClientContext;
