@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: webapp
-  replicas: 2
+  replicas: 1
   strategy:
     type: Recreate
   template:
@@ -47,52 +47,3 @@ spec:
   selector:
     app: webapp
   type: NodePort
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: db-namespace
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: db
-  namespace: db-namespace
-spec:
-  ports:
-  - port: 3306
-  selector:
-    app: db
-  type: ClusterIP
----
-apiVersion: apps/v1 
-kind: Deployment
-metadata:
-  name: db
-  namespace: db-namespace
-spec:
-  selector:
-    matchLabels:
-      app: db
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: db
-    spec:
-      containers:
-      - image: mysql:8.0
-        name: mysql
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: pass
-#        - name: MYSQL_PASSWORD
-#          value: pass
-#        - name: MYSQL_USER
-#          value: adrian
-        - name: MYSQL_DATABASE
-          value: webapp_db
-        ports:
-        - containerPort: 3306
-          name: mysql
