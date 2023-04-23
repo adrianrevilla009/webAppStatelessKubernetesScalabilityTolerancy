@@ -1,0 +1,11 @@
+config:
+  target: "http://127.0.0.1:49812"
+  phases:
+    - duration: 60
+      arrivalRate: 100
+
+scenarios:
+  - name: "Get request"
+    flow:
+      - get:
+          url: "/"
