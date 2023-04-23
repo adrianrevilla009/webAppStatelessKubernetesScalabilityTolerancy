@@ -1,0 +1,12 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: istio-destinationrule
+spec:
+  host: webapp # service
+  subsets:
+    - name: webapp
+      trafficPolicy:
+        connectionPool:
+          tcp:
+            maxConnections: 100

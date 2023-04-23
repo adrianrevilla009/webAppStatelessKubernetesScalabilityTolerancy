@@ -16,6 +16,7 @@ spec:
             host: webapp # service
             port:
               number: 8080
+            subset: webapp
       retries:
         attempts: 3
         perTryTimeout: 2s
