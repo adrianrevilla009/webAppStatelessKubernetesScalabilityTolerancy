@@ -1,39 +1,15 @@
 # webAppStatelessKubernetesScalabilityTolerancy
 Stateless app with chaos testing, istio and native kubernetes development
 
-# Testing
+En el siguiente documento se pueden ver los resultados de las diferentes pruebas:
+https://docs.google.com/document/d/1A__sNGm_CkcDCb612cIp3MA9Bok2C3f2zjFxk8cD_Ro/edit?usp=sharing
 
-Esta aplicación asigna un color aleatorio a cada usuario que se conecta. En las sucesivas peticiones a la web, se genera la página con el color asignado inicialmente.
+Los videos se han enviado a la siguiente direccion de correo: micael.gallego@gmail.com desde 
+la siguiente direccion: adrianrg1996@gmail.com
+Mi usuario de la urjc es: a.revilla@
 
-Para hacer esto, hace uso de la sesión HttpSession proporcionada por el framework Java EE.
-
-Para construir la aplicación y publicarla en DockerHub se usa el plugin maven JIB con el comando:
-
-`
-$ mvn package
-`
-
-Para desplegar la aplicación en Kubernetes se usa el comando
-
-`
-$ kubectl create -f kubernetes\webapp.yml
-`
-
-En minikube, se puede abrir el browser directamente apuntando al servicio:
-
-`
-$ minikube service webapp
-`
-
-Para probar el funcionamiento, basta con abrir dos navegadores web y verificar que cada uno de ellos tiene un color diferente.
-
-## Escalado
-
-Para escalar la aplicación basta con pedir a Kubernetes más réplicas del pod:
-
-`
-$ kubectl scale deployments/webapp --replicas=2
-`
-
-Esta web está implementada con ```spring-session```, que mantiene los datos de la sesión en un servicio compartido externo, de forma que varias réplicas pueden acceder a los datos de la sesión. En concreto, en este ejemplo se usa MySQL como sitio centralizado para guardar los datos de la sesión de los usuarios.
- 
+La urls de los videos son las siguientes:
+Video 1 (test tolerancia):
+https://drive.google.com/file/d/1Joyd3vSmA6zJpkc-uw1BpUuPehNjaTE-/view
+Video 2 (desarrollo kubernetes):
+https://drive.google.com/file/d/1vqHcMaf6zUayH50b4Nw132PLDMsGwNJW/view
